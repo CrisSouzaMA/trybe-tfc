@@ -14,7 +14,7 @@ export default class LoginController {
       return res.status(StatusCodes.OK).json({ user, token });
     } catch (error) {
       const e = error instanceof Error && error.message;
-      return res.status(StatusCodes.BAD_REQUEST).json({ message: e });
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: e });
     }
   };
 }

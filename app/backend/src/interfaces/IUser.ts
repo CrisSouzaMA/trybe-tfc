@@ -1,8 +1,11 @@
-import IToken from './IToken';
+// import IToken from './IToken';
 
-interface IUser extends IToken {
+interface IUser {
+  id: number;
+  username: string;
   role: string,
   email: string,
+  password?: string,
 }
 
 export default IUser;

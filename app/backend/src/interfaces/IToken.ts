@@ -1,7 +1,7 @@
 interface IToken {
   id: number;
-  username: number;
-  password: number;
+  username: string;
+  password: string;
 }
 
 export default IToken;

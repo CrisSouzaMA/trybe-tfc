@@ -1,11 +1,12 @@
 import * as express from 'express';
+import LoginRouter from './routes/login.router';
 
 class App {
   public app: express.Express;
-  // ...
+  private loginrouter = new LoginRouter();
 
   constructor() {
-    this.app = express ();
+    this.app = express();
     this.config();
     // ...
   }
@@ -18,8 +19,9 @@ class App {
       next();
     };
 
+    this.app.use(express.json());
     this.app.use(accessControl);
-    // ...
+    this.loginrouter.route(this.app);
   }
 
   // ...

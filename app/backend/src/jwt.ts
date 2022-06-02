@@ -4,7 +4,7 @@ import fs = require('fs');
 const senhasecreta = fs.readFileSync('./jwt.evaluation.key', { encoding: 'utf-8' });
 
 export const createToken = (user: object | null) => {
-  const token = jwt.sign({ data: user }, senhasecreta, {
+  const token = jwt.sign({ user }, senhasecreta, {
     expiresIn: '20d',
     algorithm: 'HS256',
   });

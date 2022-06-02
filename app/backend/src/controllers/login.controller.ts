@@ -17,4 +17,15 @@ export default class LoginController {
       return res.status(StatusCodes.UNAUTHORIZED).json({ message: e });
     }
   };
+
+  public logintoken = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.body.users;
+      const logintoken = await this.service.logintoken(id);
+      return res.status(StatusCodes.OK).json(logintoken.role);
+    } catch (error) {
+      const e = error instanceof Error && error.message;
+      return res.status(StatusCodes.NOT_FOUND).json({ message: e });
+    }
+  };
 }

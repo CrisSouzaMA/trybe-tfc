@@ -4,7 +4,7 @@ import { decoderToken } from '../jwt';
 import Login from '../services/login.service';
 
 type TInformation = {
-  data: {
+  user: {
     id: number;
     username: string;
     role: string,
@@ -24,7 +24,11 @@ export default class ValidationToken {
 
     const information = decoderToken(checktoken);
 
-    const { id } = (information as TInformation).data;
+    if (!information) {
+      return res.status(StatusCodes.NOT_FOUND).json({ message: 'token não existe' });
+    }
+
+    const { id } = (information as TInformation).user;
 
     const checkUser = await this.logintoken.logintoken(id);
 

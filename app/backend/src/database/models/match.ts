@@ -1,6 +1,6 @@
-import { Model, INTEGER, STRING, BOOLEAN } from 'sequelize';
+import { Model, INTEGER, BOOLEAN } from 'sequelize';
 import db from '.';
-// import Team from './team';
+import Team from './team';
 
 class Match extends Model {
   public id!: number;
@@ -12,24 +12,44 @@ class Match extends Model {
 }
 
 Match.init({
-  teamName: STRING,
-  id: INTEGER,
-  homeTeam: INTEGER,
-  awayTeam: INTEGER,
-  homeTeamGoals: INTEGER,
-  awayTeamGoals: INTEGER,
-  inProgress: BOOLEAN,
+  id: {
+    type: INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  homeTeam: {
+    primaryKey: true,
+    type: INTEGER,
+    allowNull: false,
+  },
+  homeTeamGoals: {
+    type: INTEGER,
+    allowNull: false,
+  },
+  awayTeam: {
+    type: INTEGER,
+    allowNull: false,
+  },
+  awayTeamGoals: {
+    type: INTEGER,
+    allowNull: false,
+  },
+  inProgress: {
+    type: BOOLEAN,
+    allowNull: false,
+  },
 }, {
-  sequelize: db,
   underscored: true,
+  sequelize: db,
   modelName: 'matches',
   timestamps: false,
 });
 
-// Match.belongsTo(Team, { foreignKey: 'homeTeam', as: 'homeTeam' });
-// Match.belongsTo(Team, { foreignKey: 'awayTeam', as: 'awayTeam' });
+Match.belongsTo(Team, { foreignKey: 'homeTeam', as: 'teamHome' });
+Match.belongsTo(Team, { foreignKey: 'awayTeam', as: 'teamAway' });
 
-// Team.hasMany(Match, { foreignKey: 'homeTeam', as: 'homeTeam' });
-// Team.hasMany(Match, { foreignKey: 'awayTeam', as: 'awayTeam' });
+Team.hasMany(Match, { foreignKey: 'homeTeam', as: 'teamHome' });
+Team.hasMany(Match, { foreignKey: 'awayTeam', as: 'teamAway' });
 
 export default Match;

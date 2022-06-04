@@ -12,5 +12,6 @@ export default class Matchs {
         { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
       ],
     });
+    return this._result;
   }
 }

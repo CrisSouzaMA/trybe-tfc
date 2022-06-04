@@ -4,20 +4,20 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import User from '../database/models/user';
 
 import { Response } from 'superagent';
 
 import Usermockado from '../tests/mocks/user'
+import AllTeamsMock from '../tests/mocks/teams';
+
+import User from '../database/models/user';
+import Team from '../database/models/team';
 
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('01 - Login com sucesso', () => {
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
 
   let chaiHttpResponse: Response;
 
@@ -77,3 +77,25 @@ describe('01 - Login - rota sem sucesso quando', () => {
        expect(chaiHttpResponse.status).to.be.equal(401);
      });
   });
+
+  describe('02 - Team - rota com sucesso quando', () => {
+    let chaiHttpResponse: Response;
+
+    before(async () => {
+      return sinon
+        .stub(Team, 'findAll')
+        .resolves({ AllTeamsMock } as unknown as Team[]);
+    });
+
+  after(()=>{
+    (Team.findAll as sinon.SinonStub).restore();
+  })
+
+  it('retorna lista de times', async () => {
+    chaiHttpResponse = await chai
+       .request(app)
+       .get('/teams')
+
+     expect(chaiHttpResponse.status).to.be.equal(200);
+   });
+});

@@ -9,6 +9,7 @@ import { Response } from 'superagent';
 
 import Usermockado from '../tests/mocks/user'
 import AllTeamsMock from '../tests/mocks/teams';
+import Teambyidmock from './mocks/team.id';
 
 import User from '../database/models/user';
 import Team from '../database/models/team';
@@ -98,4 +99,26 @@ describe('01 - Login - rota sem sucesso quando', () => {
 
      expect(chaiHttpResponse.status).to.be.equal(200);
    });
+});
+
+describe('02.1 - Team - id - rota com sucesso quando', () => {
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    return sinon
+      .stub(Team, 'findByPk')
+      .resolves({ Teambyidmock } as unknown as Team);
+  });
+
+after(()=>{
+  (Team.findByPk as sinon.SinonStub).restore();
+})
+
+it('retorna time referente ao id', async () => {
+  chaiHttpResponse = await chai
+     .request(app)
+     .get('/teams/:id')
+
+   expect(chaiHttpResponse.status).to.be.equal(200);
+ });
 });

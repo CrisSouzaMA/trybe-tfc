@@ -34,4 +34,10 @@ export default class MatchController {
       return res.status(StatusCodes.BAD_REQUEST).json({ message: e });
     }
   };
+
+  public updatemacth = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    await this._service.updatematch(id);
+    return res.status(StatusCodes.OK).json({ message: 'Finished' });
+  };
 }

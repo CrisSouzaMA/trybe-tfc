@@ -10,9 +10,11 @@ import { Response } from 'superagent';
 import Usermockado from '../tests/mocks/user'
 import AllTeamsMock from '../tests/mocks/teams';
 import Teambyidmock from './mocks/team.id';
+import AllMatchesMock from './mocks/matches';
 
 import User from '../database/models/user';
 import Team from '../database/models/team';
+import Match from '../database/models/match';
 
 chai.use(chaiHttp);
 
@@ -118,6 +120,27 @@ it('retorna time referente ao id', async () => {
   chaiHttpResponse = await chai
      .request(app)
      .get('/teams/:id')
+
+   expect(chaiHttpResponse.status).to.be.equal(200);
+ });
+});
+describe('03 - Match - rota com sucesso quando', () => {
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    return sinon
+      .stub(Match, 'findAll')
+      .resolves({ ...AllMatchesMock } as unknown as Team[]);
+  });
+
+after(()=>{
+  (Match.findAll as sinon.SinonStub).restore();
+})
+
+it('retorna lista de jogos', async () => {
+  chaiHttpResponse = await chai
+     .request(app)
+     .get('/matches')
 
    expect(chaiHttpResponse.status).to.be.equal(200);
  });

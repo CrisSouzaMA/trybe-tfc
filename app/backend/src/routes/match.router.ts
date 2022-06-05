@@ -10,16 +10,15 @@ export default class MatchRouter {
 
   public route = (app: Application): void => {
     app.patch(
+      '/matches/:id',
+      (req, res) => this.controller.updatematchgoals(req, res),
+    );
+    app.patch(
       '/matches/:id/finish',
       (req, res, next) => this.validationToken.validationtoken(req, res, next),
       (req, res) => this.controller.updatemacth(req, res),
     );
-
-    app.get(
-      '/matches',
-      (req, res) => this.controller.matchs(req, res),
-    );
-
+    app.get('/matches', (req, res) => this.controller.matchs(req, res));
     app.post(
       '/matches',
       (req, res, next) => this.validationToken.validationtoken(req, res, next),

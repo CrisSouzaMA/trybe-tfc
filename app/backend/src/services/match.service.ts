@@ -26,9 +26,12 @@ export default class Matchs {
   }
 
   public async creatematch(matchy: TMatch) {
-    const { inProgress } = matchy;
+    const { inProgress, homeTeam, awayTeam } = matchy;
     if (inProgress === false) {
       throw new Error('Não pode ser cadastrado com inProgress igual a false');
+    }
+    if (homeTeam === awayTeam) {
+      throw new Error('It is not possible to create a match with two equal teams');
     }
     this._matchcreate = await Match
       .create(matchy);

@@ -25,8 +25,13 @@ export default class MatchController {
 
   public creatematch = async (req: Request, res: Response) => {
     const { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress } = req.body;
-    const newmatch = await this._service
-      .creatematch({ homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress });
-    return res.status(StatusCodes.CREATED).json(newmatch);
+    try {
+      const newmatch = await this._service
+        .creatematch({ homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress });
+      return res.status(StatusCodes.CREATED).json(newmatch);
+    } catch (error) {
+      const e = error instanceof Error && error.message;
+      return res.status(StatusCodes.BAD_REQUEST).json({ message: e });
+    }
   };
 }

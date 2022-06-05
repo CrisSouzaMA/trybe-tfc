@@ -7,6 +7,12 @@ export default class MatchRouter {
   public validationToken = new ValidationToken();
 
   public route = (app: Application): void => {
+    app.patch(
+      '/matches/:id/finish',
+      (req, res, next) => this.validationToken.validationtoken(req, res, next),
+      (req, res) => this.controller.updatemacth(req, res),
+    );
+
     app.get(
       '/matches',
       (req, res) => this.controller.matchs(req, res),

@@ -13,6 +13,7 @@ type TMatch = {
 export default class Matchs {
   private _result: IMatch[] | null;
   private _matchcreate: object | null;
+  private _updatematchbyid: object | null;
 
   public async matches() {
     this._result = await Match.findAll({
@@ -26,12 +27,24 @@ export default class Matchs {
 
   public async creatematch(matchy: TMatch) {
     const { inProgress } = matchy;
-    console.log(inProgress);
     if (inProgress === false) {
       throw new Error('Não pode ser cadastrado com inProgress igual a false');
     }
     this._matchcreate = await Match
       .create(matchy);
     return this._matchcreate;
+  }
+
+  public async updatematch(id: string) {
+    this._updatematchbyid = await Match.findOne({ where: { id } });
+    if (this._updatematchbyid) {
+      await Match.update(
+        { inProgress: false },
+        { where: { id } },
+      );
+      return true;
+    }
+
+    return false;
   }
 }

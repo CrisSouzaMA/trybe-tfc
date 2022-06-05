@@ -14,6 +14,7 @@ export default class Matchs {
   private _result: IMatch[] | null;
   private _matchcreate: object | null;
   private _updatematchbyid: object | null;
+  private _updatematchgoals: object | null;
 
   public async matches() {
     this._result = await Match.findAll({
@@ -41,6 +42,22 @@ export default class Matchs {
     if (this._updatematchbyid) {
       await Match.update(
         { inProgress: false },
+        { where: { id } },
+      );
+      return true;
+    }
+
+    return false;
+  }
+
+  public async updatematchgoals(id: string, homeTeamGoals: number, awayTeamGoals: number) {
+    this._updatematchgoals = await Match.findOne({ where: { id } });
+    if (this._updatematchgoals) {
+      await Match.update(
+        {
+          homeTeamGoals,
+          awayTeamGoals,
+        },
         { where: { id } },
       );
       return true;

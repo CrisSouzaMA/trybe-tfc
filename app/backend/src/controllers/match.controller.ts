@@ -25,9 +25,15 @@ export default class MatchController {
 
   public creatematch = async (req: Request, res: Response) => {
     const { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress } = req.body;
-    const newmatch = await this._service
-      .creatematch({ homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress });
-    return res.status(StatusCodes.CREATED).json(newmatch);
+    try {
+      console.log('oi antes');
+      const newmatch = await this._service
+        .creatematch({ homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress });
+      return res.status(StatusCodes.CREATED).json(newmatch);
+    } catch (error) {
+      const e = error instanceof Error && error.message;
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: e });
+    }
   };
 
   public updatemacth = async (req: Request, res: Response) => {

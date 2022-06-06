@@ -37,7 +37,6 @@ export default class ValidationToken {
     }
 
     req.body.users = checkUser;
-
     next();
   };
 }

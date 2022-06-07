@@ -2,12 +2,14 @@ import * as express from 'express';
 import LoginRouter from './routes/login.router';
 import TeamRouter from './routes/team.router';
 import MatchRouter from './routes/match.router';
+import Leaderrouter from './routes/leaderboards';
 
 class App {
   public app: express.Express;
   private loginrouter = new LoginRouter();
   private teamrouter = new TeamRouter();
   private matchrouter = new MatchRouter();
+  private leaderrouter = new Leaderrouter();
 
   constructor() {
     this.app = express();
@@ -28,6 +30,7 @@ class App {
     this.loginrouter.route(this.app);
     this.teamrouter.route(this.app);
     this.matchrouter.route(this.app);
+    this.leaderrouter.route(this.app);
   }
 
   // ...

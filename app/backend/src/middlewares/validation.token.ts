@@ -16,6 +16,7 @@ export default class ValidationToken {
   private logintoken = new Login();
 
   public validationtoken = async (req: Request, res: Response, next: NextFunction) => {
+    console.log('que coisa mais chata');
     const checktoken = req.headers.authorization;
 
     if (!checktoken) {
@@ -37,6 +38,7 @@ export default class ValidationToken {
     }
 
     req.body.users = checkUser;
+    console.log('quero acabar logo');
     next();
   };
 }

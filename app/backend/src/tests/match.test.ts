@@ -123,3 +123,37 @@ describe('3.2 - atualiza jogo', () => {
     expect(chaiHttpResponse.status).to.be.equal(200);
   });
 });
+
+describe('3.3 - atualiza os goals do jogo', () => {
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(Match, 'findOne')
+      .resolves(Matchidmock as unknown as Match);
+    sinon
+      .stub(Match, 'update')
+      .resolves();
+  });
+
+  after(() => {
+    (Match.findOne as sinon.SinonStub).restore();
+    (Match.update as sinon.SinonStub).restore();
+  });
+
+  it('atualização ok', async () => {
+    chaiHttpResponse = await chai
+      .request(app)
+      .patch('/matches/1')
+      .set(
+        'authorization',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJ1c2VybmFtZSI6IkFkbWluIiwicm9sZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBhZG1pbi5jb20ifSwiaWF0IjoxNjU0NDQ1NDYzLCJleHAiOjE2NTYxNzM0NjN9.VXyZOjWDTumpESVa8azglcGUXmYPfxCuz6cf2TSp3Ks',
+      )
+      .send({
+        homeTeamGoals: 2,
+        awayTeamGoals: 2,
+      });
+
+    expect(chaiHttpResponse.status).to.be.equal(200);
+  });
+});

@@ -1,5 +1,5 @@
 import { Application } from 'express';
-import Homeleadercontroller from '../controllers/leaderboards.controller';
+import Homeleadercontroller from '../controllers/leaderhome.controller';
 import Awayleadercontroller from '../controllers/leaderaway.controller';
 
 export default class Leaderrouter {

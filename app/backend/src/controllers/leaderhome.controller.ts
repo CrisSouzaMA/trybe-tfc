@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import Homeleader from '../services/leader.service';
+import Homeleader from '../services/leader.home.service';
 
 export default class Homeleadercontroller {
   private service = new Homeleader();

@@ -1,9 +1,7 @@
-# Boas vindas ao repositório do Trybe Futebol Clube!
 
-Para realizar o projeto, atente-se a cada passo descrito a seguir, e se tiver qualquer dúvida, nos envie por _Slack_! #vqv 🚀
 
-Aqui você vai encontrar os detalhes de como estruturar o desenvolvimento do seu projeto a partir deste repositório, utilizando uma branch específica e um _Pull Request_ para colocar seus códigos.
 
+<<<<<<< HEAD
 # Termos e acordos
 
 Ao iniciar este projeto, você concorda com as diretrizes do Código de Conduta e do Manual da Pessoa Estudante da Trybe.
@@ -2545,3 +2543,5 @@ Ao finalizar e submeter o projeto, não se esqueça de avaliar sua experiência 
 ```
 </details>
 
+=======
+>>>>>>> fb3c09969b9ed6040ca32ceb9cf73af090634112
